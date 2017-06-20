@@ -38,7 +38,10 @@
       Promise.all([getSliderImg(), getBooks()]).then((data)=>{
         this.books = data[1];
         this.sliderimgs = data[0];
+        this.isLoading = false;
       })
+
+      // vue当中标签就是一个实例，可以通过给标签添加ref获取实例进行api操作
 
     },components:{
       Slider,Loading,MHeader
@@ -46,8 +49,7 @@
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang='less'>
 .warp-box{
 }
 .books{

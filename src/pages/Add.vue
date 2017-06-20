@@ -1,20 +1,22 @@
 <template>
   <div>
-    this is add page
+    <m-header title="添加"></m-header>
+    
   </div>
 </template>
 
 <script>
+import MHeader from '../components/MHeader';
 export default {
-  // name: 'Home',
   data () {
     return {
-      msg: 'Welcome to Your VueVueVue.js App'
+      
     }
-  }
+  },
+  components:{ MHeader }
 }
 </script>
 
-<style scoped>
+<style scoped lang='less'>
 
 </style>
