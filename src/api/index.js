@@ -28,7 +28,7 @@ export function getData(url, method, body, host, headers) {
     return new Promise((resolve, reject) => {
         axios(option).then(function(res) {
             if (res && res.status == 200) {
-                console.log(res.data);
+                // console.log(res.data);
                 resolve(res.data);
             } else {
                 reject(res);

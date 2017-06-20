@@ -31,21 +31,15 @@
       }
     },
     created(){
-      setTimeout(()=>{
-        getBooks().then((data)=>{
-          this.books = data;
-          console.log(data);
-          this.isLoading = false;
-        })
-      },1000);
+      // Promise.all()  all里面必须放Promise对象
+      // getSliderImg getBooks只有执行了后还会返回promise对象  
+      // then后面的data是两个promise执行后的数据集合
 
-      
-      getSliderImg().then((data)=>{
-        console.log(data);
-        this.sliderimgs = data;
-      });
-      
-      
+      Promise.all([getSliderImg(), getBooks()]).then((data)=>{
+        this.books = data[1];
+        this.sliderimgs = data[0];
+      })
+
     },components:{
       Slider,Loading,MHeader
     }

@@ -21,7 +21,7 @@
         },
         created(){
           getBookList().then(data=>{
-            console.log('图书列表');
+            // console.log('图书列表');
             this.books = data;//读取所有图书放到数组中
           })
         },
