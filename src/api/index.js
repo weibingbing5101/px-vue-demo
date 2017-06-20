@@ -1,28 +1,34 @@
 import axios from 'axios';
 
 export function getSliderImg(body) {
-    return getData('/api/getsliderimg', 'GET', body);
+    return getData('/api/getsliderimg', body, 'GET');
 };
 
 
 export function getBooks(body) {
-    return getData('/api/books', 'GET', body);
+    return getData('/api/books', body, 'GET');
 };
 
 
-export function getBookList(body) {  // 获取书列表
-    return getData('/api/getBookList', 'GET', body);
+export function getBookList(body) { // 获取书列表
+    return getData('/api/getBookList', body, 'GET');
+}
+
+export function addBook(body) {
+    return getData('/api/getBookList', body, 'POST');
 }
 
 
-export function getData(url, method, body, host, headers) {
+export function getData(url, body, method, host, headers) {
     let option = {
         method: method || "POST",
         url: url
     };
 
     if (body) {
-        option.data = JSON.stringify(body || {});
+        // option.data = JSON.stringify(body || {});  // 此处可以不转string   axios已经做处理了
+        option.data = body || {};
+        console.log(option);
     }
 
     return new Promise((resolve, reject) => {

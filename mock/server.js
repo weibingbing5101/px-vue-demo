@@ -8,7 +8,22 @@ function read(cbfn) {
         let datas = data.length ? JSON.parse(data) : []; // 从文件中取出来的是buffer 要转义
         cbfn && cbfn(datas);
     })
+};
+
+/*
+    总结
+        读取文件流  取出的是buffer   取出的buffer要进行操作必须要JSON.parse();
+        写入文件流  写入的必须是 string || buffer        经过JS处理的数据必须 要 JSON.stringify();
+
+        前端发后台的数据  必须是string
+        后端发前端的数据  必须是string
+*/
+function write(data, cbfn) {
+    fs.writeFile('./book.json', JSON.stringify(data), (err, datar) => { // 写入流必须是string || buffer
+        cbfn && cbfn(datar);
+    });
 }
+
 
 http.createServer(function(req, res) {
     let { pathname, query } = url.parse(req.url, true);
@@ -33,6 +48,21 @@ http.createServer(function(req, res) {
                 });
                 break;
             case 'POST':
+                var str = '';
+                req.on('data', function(data) { // 注意  req.on('data',()=>{}) req.on('end',()=>{})是异步
+                    str += data; // 收集数据
+                });
+                req.on('end', function() {
+                    read(function(data) {
+                        let addBook = JSON.parse(str);
+                        addBook.id = data.length ? data[data.length - 1].id + 1 : 1;
+
+                        data.push(addBook);
+                        write(data, (data) => {
+                            res.end(JSON.stringify(data));
+                        });
+                    });
+                });
                 break;
             case 'DELETE':
                 break;
