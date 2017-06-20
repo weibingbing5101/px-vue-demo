@@ -5,6 +5,9 @@ export function getSliderImg(body) {
 };
 
 
+export function getBooks(body) {
+    return getData('/api/books', 'get', body);
+};
 
 export function getData(url, method, body, host, headers) {
     let option = {

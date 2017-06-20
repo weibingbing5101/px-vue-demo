@@ -34,6 +34,7 @@ export default {
 
 <style scoped lang='less'>
   nav{
+    background-color: #fff;
     height: 60px;
     display: flex;
     position: fixed;
@@ -50,7 +51,7 @@ export default {
       align-items: center;
     }
     .active{
-      color: orangered;
+      color: blue;
     }
   }
 </style>
