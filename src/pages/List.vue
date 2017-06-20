@@ -7,6 +7,7 @@
           <div>
             <h3>{{book.bookName}}</h3>
             <p>{{book.content}}</p>
+            <button @click="remove(book.id)">删除</button>
           </div>
         </li>
       </ul>
@@ -14,10 +15,10 @@
 </template>
 <script>
     import MHeader from '../components/MHeader';
-    import {getBookList} from '../api';
+    import {getBookList, deleteBook} from '../api';
     export default {
         data(){
-            return {books:[]}
+          return {books:[],id:''}
         },
         created(){
           getBookList().then(data=>{
@@ -27,7 +28,13 @@
         },
         computed: {},
         components: {MHeader},
-        methods: {}
+        methods: {
+          remove(idn){
+            deleteBook({id: idn}).then((data)=>{
+              this.books = this.books.filter(item=>item.id!=id);
+            });
+          }
+        }
     }
 </script>
 <style scoped lang="less">
@@ -42,6 +49,9 @@
       flex-direction: column;
     }
   }
+}
+button{
+  border: 1px solid #ccc; border-radius: 10px;
 }
 
 </style>

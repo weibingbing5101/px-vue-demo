@@ -2,14 +2,6 @@ let http = require('http');
 let fs = require('fs');
 let url = require('url');
 let sliders = require('./slider');
-
-function read(cbfn) {
-    fs.readFile('./book.json', 'utf8', (err, data) => {
-        let datas = data.length ? JSON.parse(data) : []; // 从文件中取出来的是buffer 要转义
-        cbfn && cbfn(datas);
-    })
-};
-
 /*
     总结
         读取文件流  取出的是buffer   取出的buffer要进行操作必须要JSON.parse();
@@ -22,8 +14,24 @@ function write(data, cbfn) {
     fs.writeFile('./book.json', JSON.stringify(data), (err, datar) => { // 写入流必须是string || buffer
         cbfn && cbfn(datar);
     });
-}
+};
 
+function read(cbfn) {
+    fs.readFile('./book.json', 'utf8', (err, data) => {
+        let datas = data.length ? JSON.parse(data) : []; // 从文件中取出来的是buffer 要转义
+        cbfn && cbfn(datas);
+    })
+};
+// 收集数据方法
+function getData(req, cbfn) {
+    let str = '';
+    req.on('data', function(data) { // 注意  req.on('data',()=>{}) req.on('end',()=>{})是异步
+        str += data; // 收集数据
+    });
+    req.on('end', function() {
+        cbfn && cbfn(str);
+    });
+};
 
 http.createServer(function(req, res) {
     let { pathname, query } = url.parse(req.url, true);
@@ -48,11 +56,7 @@ http.createServer(function(req, res) {
                 });
                 break;
             case 'POST':
-                var str = '';
-                req.on('data', function(data) { // 注意  req.on('data',()=>{}) req.on('end',()=>{})是异步
-                    str += data; // 收集数据
-                });
-                req.on('end', function() {
+                getData(req, (str) => {
                     read(function(data) {
                         let addBook = JSON.parse(str);
                         addBook.id = data.length ? data[data.length - 1].id + 1 : 1;
@@ -65,6 +69,12 @@ http.createServer(function(req, res) {
                 });
                 break;
             case 'DELETE':
+                read(function(books) {
+                    books = books.filter(item => id != item.id);
+                    write(books, function() {
+                        res.end(JSON.stringify({}));
+                    });
+                });
                 break;
             case 'PUT':
                 break;

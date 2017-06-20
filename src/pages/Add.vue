@@ -65,6 +65,8 @@ export default {
       flex-direction: column;
       button{
         height: 35px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
       }
     }
   }

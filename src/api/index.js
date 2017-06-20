@@ -18,6 +18,9 @@ export function addBook(body) {
     return getData('/api/getBookList', body, 'POST');
 }
 
+export function deleteBook(body) {
+    return getData('/api/getBookList', body, 'DELETE');
+}
 
 export function getData(url, body, method, host, headers) {
     let option = {
@@ -28,7 +31,6 @@ export function getData(url, body, method, host, headers) {
     if (body) {
         // option.data = JSON.stringify(body || {});  // 此处可以不转string   axios已经做处理了
         option.data = body || {};
-        console.log(option);
     }
 
     return new Promise((resolve, reject) => {
