@@ -69,12 +69,16 @@ http.createServer(function(req, res) {
                 });
                 break;
             case 'DELETE':
-                read(function(books) {
-                    books = books.filter(item => id != item.id);
-                    write(books, function() {
-                        res.end(JSON.stringify({}));
+                getData(req, (str) => {
+                    let removeID = JSON.parse(str).id;
+                    read(function(books) {
+                        books = books.filter(item => removeID != item.id);
+                        write(books, function() {
+                            res.end(JSON.stringify({}));
+                        });
                     });
                 });
+
                 break;
             case 'PUT':
                 break;

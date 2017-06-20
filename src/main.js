@@ -4,7 +4,10 @@ import App from './App'
 import router from './router'
 import './assets/index'; // 公用样式
 import VueLazyLoad from 'vue-lazyload';
+import VueScroller  from 'vue-scroller';
+
 Vue.use(VueLazyLoad);
+Vue.use(VueScroller);//引用这个组件后 也面会多一个全局组件 scroller
 
 new Vue({
     el: '#app',

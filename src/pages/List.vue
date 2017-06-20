@@ -1,6 +1,7 @@
 <template>
     <div>
       <m-header title="列表页"></m-header>
+      <scroller :on-refresh="refresh" ref="scroller" class="top">
       <ul class="list">
         <li v-for="book in books">
           <img v-lazy="book.bookCover" alt="">
@@ -11,6 +12,7 @@
           </div>
         </li>
       </ul>
+      </scroller>
     </div>
 </template>
 <script>
@@ -21,17 +23,25 @@
           return {books:[],id:''}
         },
         created(){
-          getBookList().then(data=>{
-            // console.log('图书列表');
-            this.books = data;//读取所有图书放到数组中
-          })
+          this.getList()
         },
         computed: {},
         components: {MHeader},
         methods: {
+          refresh(){
+                //获取最新数据
+            this.getList();
+          },
+          getList(){
+            getBookList().then(data=>{
+            // console.log('图书列表');
+              this.books = data;//读取所有图书放到数组中
+              this.$refs.scroller.finishPullToRefresh();
+            })
+          },
           remove(idn){
             deleteBook({id: idn}).then((data)=>{
-              this.books = this.books.filter(item=>item.id!=id);
+              this.books = this.books.filter(item=>item.id!=idn);
             });
           }
         }
@@ -50,6 +60,7 @@
     }
   }
 }
+.top{margin-top:40px}
 button{
   border: 1px solid #ccc; border-radius: 10px;
 }
