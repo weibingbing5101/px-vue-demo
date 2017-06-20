@@ -1,9 +1,11 @@
 <template>
   <div>
+    <div class="content-box">
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </div> 
     <Tab></Tab>
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
     <!-- 此处可以放N多组件公用的组件，例如导航头部     注：已经使用了路由，所以没必要再引入Home组件了-->
   </div>
 </template>
@@ -27,6 +29,9 @@ export default {
 </script>
 
 <style lang='less'>
+.content-box{
+  padding-bottom: 60px;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -3,6 +3,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import './assets/index'; // 公用样式
+import VueLazyLoad from 'vue-lazyload';
+Vue.use(VueLazyLoad);
 
 new Vue({
     el: '#app',

@@ -1,37 +1,47 @@
 <template>
-  <div>
-    this is list page
-  </div>
+    <div>
+      <m-header title="列表页"></m-header>
+      <ul class="list">
+        <li v-for="book in books">
+          <img v-lazy="book.bookCover" alt="">
+          <div>
+            <h3>{{book.bookName}}</h3>
+            <p>{{book.content}}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
 </template>
-
 <script>
-export default {
-  // name: 'Home',
-  data () {
-    return {
-      msg: 'Welcome to Your VueVueVue.js App'
+    import MHeader from '../components/MHeader';
+    import {getBookList} from '../api';
+    export default {
+        data(){
+            return {books:[]}
+        },
+        created(){
+          getBookList().then(data=>{
+            console.log('图书列表');
+            this.books = data;//读取所有图书放到数组中
+          })
+        },
+        computed: {},
+        components: {MHeader},
+        methods: {}
+    }
+</script>
+<style scoped lang="less">
+.list{
+  li{
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    img{width: 100px;height: 90px}
+    div{
+      h3{color: #666666;margin: 5px;}
+      display: flex;
+      flex-direction: column;
     }
   }
 }
-</script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 </style>

@@ -3,11 +3,11 @@ let fs = require('fs');
 let url = require('url');
 let sliders = require('./slider');
 
-function read(cbfn){
-	fs.readFile('./book.json', 'utf8', (err, data)=>{
-		let datas = data.length ? JSON.parse(data) : [];   // 从文件中取出来的是buffer 要转义
-		cbfn && cbfn(data);
-	})
+function read(cbfn) {
+    fs.readFile('./book.json', 'utf8', (err, data) => {
+        let datas = data.length ? JSON.parse(data) : []; // 从文件中取出来的是buffer 要转义
+        cbfn && cbfn(datas);
+    })
 }
 
 http.createServer(function(req, res) {
@@ -17,11 +17,29 @@ http.createServer(function(req, res) {
         return res.end(JSON.stringify(sliders));
     }
 
-    if(pathname === '/api/books'){
-    	read((data)=>{
-    		res.end(JSON.stringify(data));
-    	});
-    	return false;
+    if (pathname === '/api/books') {
+        read((data) => {
+            res.end(JSON.stringify(data));
+        });
+        return false;
+    }
+
+    // 图书的增删改查
+    if (pathname === '/api/getBookList') {
+        switch (req.method) {
+            case 'GET':
+                read(function(data) { //data代表所有数据
+                    res.end(JSON.stringify(data));
+                });
+                break;
+            case 'POST':
+                break;
+            case 'DELETE':
+                break;
+            case 'PUT':
+                break;
+        }
+
     }
 
 

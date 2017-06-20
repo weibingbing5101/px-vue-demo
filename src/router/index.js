@@ -3,10 +3,10 @@ import Router from 'vue-router'
 
 // import Hello from '@/components/Hello'  
 
-import Home from 'pages/Home'
-import List from 'pages/List'
+import Home from '../pages/Home'
+import List from '../pages/List'
 import Collect from 'pages/Collect'
-import Add from 'pages/Add'
+import Add from '../pages/Add'
 
 
 Vue.use(Router); // vue-router 是vue的一个插件，需要use一下还可以使用

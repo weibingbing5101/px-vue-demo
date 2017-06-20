@@ -19,3 +19,18 @@ a {
   color: #3e3e3e;
   text-decoration: none;
 }
+
+
+// 懒加载 图片样式
+img[lazy="loading"]{
+  background: url("../assets/loading.gif") no-repeat center;
+  background-size: 50%;
+}
+img[lazy="loaded"]{
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from{opacity: 0}
+  to{opacity: 1}
+}

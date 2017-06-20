@@ -3919,6 +3919,10 @@ vue-hot-reload-api@^2.1.0:
   version "2.1.0"
   resolved "http://r.cnpmjs.org/vue-hot-reload-api/download/vue-hot-reload-api-2.1.0.tgz#9ca58a6e0df9078554ce1708688b6578754d86de"
 
+vue-lazyload@^1.0.5:
+  version "1.0.5"
+  resolved "http://r.cnpmjs.org/vue-lazyload/download/vue-lazyload-1.0.5.tgz#767c041472e85237c6efa8a486badfa4dbb96edb"
+
 vue-loader@^12.1.0:
   version "12.2.1"
   resolved "http://r.cnpmjs.org/vue-loader/download/vue-loader-12.2.1.tgz#53f27c0973d386768f5a75156f4129b5efc6ba55"
