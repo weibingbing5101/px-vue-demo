@@ -1,26 +1,20 @@
-import * as Types from './mutation-types.js';
-
+import * as Types from './mutation-types'
 const mutations = {
-    [Types.ADD_COLLECT](state, obj) { // 收藏
-        state.collect.push(obj)
+    [Types.ADD_COLLECT](state, obj) {
+        state.collect.push(obj);
     },
-    [Types.REMOVE_COLLECT](state, obj) { // 取消收藏
-        // state.collect = state.collect.some((item)=>{
-        // 	if(item.id == obj.id){
-        // 	}
-        // });
+    [Types.REMOVE_COLLECT](state) {
+
     }
 };
+export default mutations
 
 
-
-export default mutations;
-
-// let a = { b: 'c' };
-
-// let ax = {
-//     a.b: 'xxxxx'
-// }
-// let ax = {
-//     [a.b]: 'xxxxx'
-// }
+/*
+let a = {
+  b:'c'
+}
+let obj = {
+  [a.b]:1
+}
+*/

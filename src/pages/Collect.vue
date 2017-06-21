@@ -1,6 +1,6 @@
 <template>
   <div>
-    <m-header title="收藏"></m-header>
+    <m-header title="收藏"></m-header>{{collect.length}}
   </div>
 </template>
 
@@ -10,15 +10,15 @@ import MHeader from '../components/MHeader';
 // import {getBookList, deleteBook} from '../api';
 export default {
   // name: 'Home',
-  computed: {
-    // ...mapState(['collect'])
-  },
   data () {
     return {
       msg: 'Welcome to Your VueVueVue.js App'
     }
   },
-  components: {MHeader}
+  components: {MHeader},
+  computed: {
+      ...mapState(['collect'])
+  },
 }
 </script>
 

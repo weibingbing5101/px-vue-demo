@@ -5,7 +5,7 @@ import Router from 'vue-router'
 
 import Home from '../pages/Home'
 import List from '../pages/List'
-import Collect from 'pages/Collect'
+import Collect from '../pages/Collect'
 import Add from '../pages/Add'
 
 

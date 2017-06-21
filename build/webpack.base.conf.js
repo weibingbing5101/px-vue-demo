@@ -19,12 +19,13 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json', '.less'], // 文件后辍
+    extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',  
-      '@': resolve('src'),                 // 用@ 代表src的路径
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': resolve('src'),//@符号表示的就是src的绝对路径
       'components':resolve('src/components'),
-      'pages':resolve('src/pages'),
+      'containers':resolve('src/containers'),
+      'api':resolve('src/api')
     }
   },
   module: {
