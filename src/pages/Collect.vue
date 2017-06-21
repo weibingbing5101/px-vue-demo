@@ -30,9 +30,10 @@ export default {
   computed: {
       ...mapState(['collect'])
   },
-  method:{
-    ...mapMutations[Types.REMOVE_COLLECT],
+  methods:{
+    ...mapMutations([Types.REMOVE_COLLECT]),
     cancel(id){
+      console.log(id);
       this[Types.REMOVE_COLLECT](id);
     }
   }
@@ -50,3 +51,11 @@ export default {
   }
 }
 </style>
+
+
+
+
+
+
+
+

@@ -6,7 +6,7 @@ const mutations = {
         !flag && state.collect.push(obj);
         localStorage.setItem('collects', JSON.stringify(state.collect));
     },
-    [Types.REMOVE_COLLECT](state) {
+    [Types.REMOVE_COLLECT](state,id) {
         state.collect = state.collect.filter(item => item.id !== id);
         localStorage.setItem('collects', JSON.stringify(state.collect));
     }

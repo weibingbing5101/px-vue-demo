@@ -4,7 +4,7 @@ import getters from './getters.js';
 import mutations from './mutations.js';
 Vue.use(Vuex);
 const state = {
-    collect: [] //存放所有的商品
+    collect:JSON.parse(localStorage.getItem('collects'))||[] //存放所有的商品
 };
 export default new Vuex.Store({
     state,
