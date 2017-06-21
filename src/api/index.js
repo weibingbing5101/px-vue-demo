@@ -18,6 +18,14 @@ export function addBook(body) {
     return getData('/api/getBookList', body, 'POST');
 }
 
+export function getBookInfo(body){  // 根据ID获取图书信息进行修改
+    return getData('/api/getBookInfo', body, 'POST');
+}
+
+export function editBookInfo(body){  // 根据ID获取图书信息进行修改
+    return getData('/api/editBookInfo', body, 'POST');
+}
+
 export function deleteBook(body) {
     return getData('/api/getBookList', body, 'DELETE');
 }
@@ -32,6 +40,7 @@ export function getData(url, body, method, host, headers) {
         // option.data = JSON.stringify(body || {});  // 此处可以不转string   axios已经做处理了
         option.data = body || {};
     }
+    console.log(option);
 
     return new Promise((resolve, reject) => {
         axios(option).then(function(res) {

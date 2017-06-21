@@ -40,18 +40,53 @@ http.createServer(function(req, res) {
         return res.end(JSON.stringify(sliders));
     }
 
+    // 获取一本书的信息
+    if (pathname === '/api/getBookInfo') {
+        getData(req, (str) => {
+            let bookid = JSON.parse(str);
+            read((data) => {
+                let book = data.find(item => item.id == bookid.id);
+                res.end(JSON.stringify(book));
+            });
+        });
+        return;
+    }
+
+    // 修改某一部书信息
+    if (pathname === '/api/editBookInfo') {
+        getData(req, (str) => {
+            let bookinfo = JSON.parse(str);
+            read((data) => {
+                let arr = data.map((item) => {
+                    if (item.id == bookinfo.id) {
+                        return bookinfo;
+                    } else {
+                        return item;
+                    }
+                });
+                console.log(arr);
+                write(arr, () => {
+                    console.log(arr);
+                    res.end(JSON.stringify({}));
+                });
+
+            });
+        });
+        return;
+    }
+
     if (pathname === '/api/books') {
         read((data) => {
             res.end(JSON.stringify(data));
         });
-        return false;
+        return;
     }
 
     // 图书的增删改查
     if (pathname === '/api/getBookList') {
         switch (req.method) {
             case 'GET':
-                read(function(data) { //data代表所有数据
+                read((data)=> { //data代表所有数据
                     res.end(JSON.stringify(data));
                 });
                 break;

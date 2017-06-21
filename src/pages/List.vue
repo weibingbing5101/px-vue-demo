@@ -9,6 +9,7 @@
             <h3>{{book.bookName}}</h3>
             <p>{{book.content}}</p>
             <div class="btn-list">
+              <i class="iconfont icon-shoucang" @click="save(book)"></i>
               <router-link :to="{ path:'/add', 'query': { 'id':  book.id} }" tag="button">修改</router-link>
               <button @click="remove(book.id)">删除</button>
             </div>
@@ -20,7 +21,9 @@
 </template>
 <script>
     import MHeader from '../components/MHeader';
-    import {getBookList, deleteBook} from '../api';
+    import {mapMutations} from 'vuex';
+    import * as Types from '../store/mutation-types'
+    import {getBookList, deleteBook, saveBook} from '../api';
     export default {
         data(){
           return {books:[],id:''}
@@ -33,13 +36,24 @@
         },
         components: {MHeader},
         methods: {
+          ...mapMutations([Types.ADD_COLLECT]),
+          save(book){
+            console.log('添加收藏');
+            this[Types.ADD_COLLECT](book);
+            this.$router.push('/collect');
+          },
+          remove(id){
+            removeBook(id).then(res=>{
+                //前台删除成功 将此项在页面中移除掉
+              this.books = this.books.filter(item=>item.id!=id);
+            });
+          },
           refresh(){
                 //获取最新数据
             this.getList();
           },
           getList(){
             getBookList().then(data=>{
-            // console.log('图书列表');
               this.books = data;//读取所有图书放到数组中
               this.$refs.scroller.finishPullToRefresh();
             })
@@ -49,6 +63,9 @@
               this.books = this.books.filter(item=>item.id!=idn);
             });
           }
+        },
+        activated(){
+          this.getList();
         }
     }
 </script>
@@ -75,5 +92,6 @@ button{
   border: 1px solid #ccc; border-radius: 5px;
   width: 80px;
 }
+.icon-shoucang{font-size: 22px;color: orangered}
 
 </style>

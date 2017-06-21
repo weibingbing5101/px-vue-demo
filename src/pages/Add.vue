@@ -15,7 +15,7 @@
           <input type="text" id="content" placeholder="请输入书的详细内容" v-model="book.content">
         </div>
         <div class="group">
-          <button @click="add">添加图书</button>
+          <button @click="add">{{title}}</button>
         </div>
       </div>
   </div>
@@ -23,10 +23,13 @@
 
 <script>
 import MHeader from '../components/MHeader';
-import {addBook} from '../api/index.js';
+import {addBook, getBookInfo, editBookInfo} from '../api/index.js';
 
 export default {
 	computed: {
+    // title(){
+    //   return 
+    // }
 		// title: id ? '修改图书' : '添加图书'
 	},
   data () {
@@ -44,24 +47,40 @@ export default {
   components:{ MHeader },
   methods: {
     add(){
-      addBook(this.book).then( data =>{
+      let option = this.book;
+      if(this.id){
+        editBookInfo(option).then((data)=>{
+          this.$route.push('/list');
+        });
+        return false;
+      }
+      addBook(option).then( data =>{
          this.$route.push('/list');
       });
+    },
+    getInfor(){ // 判断是添加图书   还是修改图书
+      this.id = (this.$route && this.$route.query && this.$route.query.id) ? this.$route.query.id :'' ;
+      if(this.id){
+          this.title = '修改图书';
+          getBookInfo({'id': this.id}).then((data)=>{
+            console.log(data);
+            this.book = data;
+          });
+      }else{
+        this.book = {
+          bookName:'',
+          bookCover:'',
+          content:''
+        };
+        this.title = '添加图书';
+      }
     }
 	},
 	created(){
-		this.id = (this.$route && this.$route.query && this.$route.query.id) ? this.$route.query.id :'' ;
-		if(this.id){
-			this.title = '修改图书';
-			getBookinfo({'id': this.id}).then((data)=>{
-				this.bood = data;
-			});
-		}else{
-			this.title = '添加图书';
-		}
+		this.getInfor();
   },
   activated(){  // 清除keep-alive 所带来的缓存
-
+    this.getInfor();
   }
 }
 </script>
