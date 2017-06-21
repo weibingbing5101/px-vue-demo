@@ -28,7 +28,9 @@
         created(){
           this.getList();
         },
-        computed: {},
+        computed: {
+          
+        },
         components: {MHeader},
         methods: {
           refresh(){

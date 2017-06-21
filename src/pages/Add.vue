@@ -25,8 +25,6 @@
 import MHeader from '../components/MHeader';
 import {addBook} from '../api/index.js';
 
-let id = (this.$router && this.$router.query && this.$router.query.id) ?this.$router.query.id :'' ;
-
 export default {
 	computed: {
 		// title: id ? '修改图书' : '添加图书'
@@ -38,23 +36,28 @@ export default {
       	bookCover:'',
       	content:''
       },
-      title: id ? '修改图书' : '添加图书'
-      // bookID: this.$router.params.id   // 路由传过来的ID
+      title: '添加图书',
+      id:''
+      // bookID: this.$route.params.id   // 路由传过来的ID
     }
   },
   components:{ MHeader },
   methods: {
     add(){
       addBook(this.book).then( data =>{
-         this.$router.push('/list');
+         this.$route.push('/list');
       });
     }
 	},
 	created(){
-		if(id){
-			getBookinfo({'id': id}).then((data)=>{
+		this.id = (this.$route && this.$route.query && this.$route.query.id) ? this.$route.query.id :'' ;
+		if(this.id){
+			this.title = '修改图书';
+			getBookinfo({'id': this.id}).then((data)=>{
 				this.bood = data;
 			});
+		}else{
+			this.title = '添加图书';
 		}
   },
   activated(){  // 清除keep-alive 所带来的缓存

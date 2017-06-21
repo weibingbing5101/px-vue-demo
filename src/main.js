@@ -5,6 +5,7 @@ import router from './router'
 import './assets/index'; // 公用样式
 import VueLazyLoad from 'vue-lazyload';
 import VueScroller  from 'vue-scroller';
+import store from './store/index.js';
 
 Vue.use(VueLazyLoad);
 Vue.use(VueScroller);//引用这个组件后 也面会多一个全局组件 scroller
@@ -19,5 +20,6 @@ new Vue({
         return h(App);
     },
     // ...App, // 直接将组件解构放到当前实例下即可  如果使用...App需要把components 和 render 去掉
-    components: { App }
+    components: { App },
+    store
 })
