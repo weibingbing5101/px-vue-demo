@@ -1,6 +1,6 @@
 <template>
   <div>
-    <m-header title="添加"></m-header>
+    <m-header :title="title"></m-header>
     <div class="add">
         <div class="group">
           <label for="bookName">书名</label>
@@ -25,14 +25,21 @@
 import MHeader from '../components/MHeader';
 import {addBook} from '../api/index.js';
 
+let id = (this.$router && this.$router.query && this.$router.query.id) ?this.$router.query.id :'' ;
+
 export default {
+	computed: {
+		// title: id ? '修改图书' : '添加图书'
+	},
   data () {
     return {
       book:{
       	bookName:'',
       	bookCover:'',
       	content:''
-      }
+      },
+      title: id ? '修改图书' : '添加图书'
+      // bookID: this.$router.params.id   // 路由传过来的ID
     }
   },
   components:{ MHeader },
@@ -42,7 +49,17 @@ export default {
          this.$router.push('/list');
       });
     }
-	}
+	},
+	created(){
+		if(id){
+			getBookinfo({'id': id}).then((data)=>{
+				this.bood = data;
+			});
+		}
+  },
+  activated(){  // 清除keep-alive 所带来的缓存
+
+  }
 }
 </script>
 

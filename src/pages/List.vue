@@ -8,7 +8,10 @@
           <div>
             <h3>{{book.bookName}}</h3>
             <p>{{book.content}}</p>
-            <button @click="remove(book.id)">删除</button>
+            <div class="btn-list">
+              <router-link :to="{ path:'/add', 'query': { 'id':  book.id} }" tag="button">修改</router-link>
+              <button @click="remove(book.id)">删除</button>
+            </div>
           </div>
         </li>
       </ul>
@@ -23,7 +26,7 @@
           return {books:[],id:''}
         },
         created(){
-          this.getList()
+          this.getList();
         },
         computed: {},
         components: {MHeader},
@@ -61,8 +64,14 @@
   }
 }
 .top{margin-top:40px}
+.list .btn-list{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 button{
-  border: 1px solid #ccc; border-radius: 10px;
+  border: 1px solid #ccc; border-radius: 5px;
+  width: 80px;
 }
 
 </style>
