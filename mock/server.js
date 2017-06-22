@@ -34,7 +34,7 @@ function getData(req, cbfn) {
 };
 
 http.createServer(function(req, res) {
-    let { pathname, query } = url.parse(req.url, true);
+    let { pathname, query } = url.parse(req.url, true);   // 把query转换成对象
 
     if (pathname === '/api/getsliderimg') {
         return res.end(JSON.stringify(sliders));
